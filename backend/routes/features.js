@@ -65,7 +65,11 @@ Return JSON ONLY:
     const result = await callOpenRouter(prompt, model);
     res.json({ success: true, ...result });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to generate planner.' });
+    console.error('Planner API Error:', error.response?.data || error.message);
+    res.status(500).json({ 
+      error: 'Failed to generate planner.', 
+      details: error.response?.data?.error?.message || error.message 
+    });
   }
 });
 
@@ -88,7 +92,11 @@ Return JSON ONLY:
     const result = await callOpenRouter(prompt, model);
     res.json({ success: true, ...result });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to generate A/B test.' });
+    console.error('AB-Test API Error:', error.response?.data || error.message);
+    res.status(500).json({ 
+      error: 'Failed to generate A/B test.',
+      details: error.response?.data?.error?.message || error.message
+    });
   }
 });
 
@@ -110,7 +118,11 @@ Return JSON ONLY:
     const result = await callOpenRouter(prompt, model);
     res.json({ success: true, ...result });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to generate insights.' });
+    console.error('Insights API Error:', error.response?.data || error.message);
+    res.status(500).json({ 
+      error: 'Failed to generate insights.',
+      details: error.response?.data?.error?.message || error.message
+    });
   }
 });
 
@@ -132,7 +144,11 @@ Return JSON ONLY:
     const result = await callOpenRouter(prompt, model);
     res.json({ success: true, ...result });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to improve campaign.' });
+    console.error('Improve API Error:', error.response?.data || error.message);
+    res.status(500).json({ 
+      error: 'Failed to improve campaign.',
+      details: error.response?.data?.error?.message || error.message
+    });
   }
 });
 
