@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="MarketMate AI — AI-powered Marketing Campaign Builder for small businesses. Generate ad copies, hashtags, and strategies instantly." />
+  <title>MarketMate AI — Campaign Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-name">MarketMate <span class="brand-ai">AI</span></span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-tab="campaign" id="nav-campaign">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10" /><path d="M18 20V4" /><path d="M6 20v-4" /></svg>
+        <span>Campaign Generator</span>
+      </button>
+      <button class="nav-btn" data-tab="planner" id="nav-planner">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span>Campaign Planner</span>
+      </button>
+      <button class="nav-btn" data-tab="ab-test" id="nav-ab-test">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+        <span>A/B Testing</span>
+      </button>
+      <button class="nav-btn" data-tab="insights" id="nav-insights">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+        <span>Audience Insights</span>
+      </button>
+      <button class="nav-btn" data-tab="improve" id="nav-improve">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+        <span>Improve Campaign</span>
+      </button>
+      <button class="nav-btn" data-tab="history" id="nav-history">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        <span>Saved History</span>
+      </button>
+      <button class="nav-btn" data-tab="chat" id="nav-chat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+        <span>Chat Assistant</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="model-selector">
+        <label for="model-select">AI Model</label>
+        <select id="model-select">
+          <option value="openrouter/free">OpenRouter Auto (Best Free)</option>
+          <option value="stepfun/step-3.5-flash:free">Stepfun 3.5 Flash (Free)</option>
+          <option value="liquid/lfm-2.5-1.2b-instruct:free">Liquid LFM 2.5 (Free)</option>
+        </select>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Mobile Header -->
+  <header class="mobile-header" id="mobile-header">
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="mobile-brand">MarketMate <span class="brand-ai">AI</span></span>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content">
+
+    <!-- ===== Campaign Generator Tab ===== -->
+    <section class="tab-content active" id="tab-campaign">
+      <div class="page-header">
+        <h1>Campaign Generator</h1>
+        <p class="page-desc">Fill in your product details and let AI craft a complete marketing campaign in seconds.</p>
+      </div>
+
+      <form id="campaign-form" class="campaign-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="input-product">Product Name</label>
+            <input type="text" id="input-product" placeholder="e.g. EcoBottle Pro" required />
+          </div>
+          <div class="form-group">
+            <label for="input-audience">Target Audience</label>
+            <input type="text" id="input-audience" placeholder="e.g. Eco-conscious millennials" required />
+          </div>
+          <div class="form-group">
+            <label for="input-budget">Budget</label>
+            <input type="text" id="input-budget" placeholder="e.g. $500/month" required />
+          </div>
+          <div class="form-group">
+            <label for="input-platform">Platform</label>
+            <select id="input-platform" required>
+              <option value="">Select platform</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Google Ads">Google Ads</option>
+              <option value="Facebook">Facebook</option>
+              <option value="TikTok">TikTok</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label for="input-tone">Tone</label>
+            <select id="input-tone" required>
+              <option value="">Select tone</option>
+              <option value="Professional">Professional</option>
+              <option value="Funny">Funny</option>
+              <option value="Aggressive">Aggressive</option>
+              <option value="Friendly">Friendly</option>
+              <option value="Inspirational">Inspirational</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-generate">
+          Generate Campaign
+        </button>
+      </form>
+
+      <!-- Loading State -->
+      <div class="loading-state hidden" id="campaign-loading">
+        <div class="loader"></div>
+        <p>Generating your campaign with AI…</p>
+      </div>
+
+      <!-- Error State -->
+      <div class="error-state hidden" id="campaign-error">
+        <p id="campaign-error-msg"></p>
+      </div>
+
+      <!-- Campaign Output -->
+      <div class="campaign-output hidden" id="campaign-output">
+        <div class="output-header">
+          <h2>Your Campaign</h2>
+          <div class="action-buttons">
+            <button class="btn-secondary" id="btn-save-generator">Save to History</button>
+            <button class="btn-secondary" id="btn-export-generator">Export .txt</button>
+            <button class="btn-secondary" id="btn-regenerate">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" /></svg>
+              Regenerate
+            </button>
+          </div>
+        </div>
+
+        <!-- Ad Copies -->
+        <div class="output-section">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+            </svg>
+            Ad Copies
+          </h3>
+          <div class="cards-row" id="ad-copies-container"></div>
+        </div>
+
+        <!-- Instagram Caption -->
+        <div class="output-section">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+            Instagram Caption
+          </h3>
+          <div class="card" id="caption-card"></div>
+        </div>
+
+        <!-- Hashtags -->
+        <div class="output-section">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="9" x2="20" y2="9" />
+              <line x1="4" y1="15" x2="20" y2="15" />
+              <line x1="10" y1="3" x2="8" y2="21" />
+              <line x1="16" y1="3" x2="14" y2="21" />
+            </svg>
+            Hashtags
+          </h3>
+          <div class="hashtag-cloud" id="hashtags-container"></div>
+        </div>
+
+        <!-- Marketing Strategy -->
+        <div class="output-section">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+            </svg>
+            Marketing Strategy
+          </h3>
+          <div class="card strategy-card" id="strategy-card"></div>
+        </div>
+
+        <!-- Revenue & Sales Strategy -->
+        <div class="output-section">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+            Revenue & Sales Strategy
+          </h3>
+          <div class="revenue-grid" id="revenue-container">
+            <div class="card revenue-card" id="revenue-pricing">
+              <span class="card-label"> Pricing Strategy</span>
+              <p></p>
+            </div>
+            <div class="card revenue-card" id="revenue-channels">
+              <span class="card-label">Sales Channels</span>
+              <ul></ul>
+            </div>
+            <div class="card revenue-card" id="revenue-projection">
+              <span class="card-label">Revenue Projection</span>
+              <p></p>
+            </div>
+            <div class="card revenue-card" id="revenue-tips">
+              <span class="card-label">Monetization Tips</span>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Chat Assistant Tab ===== -->
+    <section class="tab-content" id="tab-chat">
+      <div class="chat-container">
+        <div class="chat-header">
+          <h1>Chat Assistant</h1>
+          <p class="page-desc">Ask anything about marketing — strategy, ads, SEO, social media, and more.</p>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+          <div class="chat-bubble bot">
+            <div class="bubble-avatar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+            </div>
+            <div class="bubble-content">
+              <p>Hey there! I'm your MarketMate AI assistant. Ask me anything about marketing your business — from ad
+                strategy to social media growth tips!</p>
+            </div>
+          </div>
+        </div>
+        <form class="chat-input-area" id="chat-form">
+          <input type="text" id="chat-input" placeholder="Ask about marketing..." autocomplete="off" required />
+          <button type="submit" class="btn-send" id="btn-send">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== Campaign Planner Tab ===== -->
+    <section class="tab-content" id="tab-planner">
+      <div class="page-header">
+        <h1>Campaign Planner</h1>
+        <p class="page-desc">Create a step-by-step timeline and budget allocation for your campaign.</p>
+      </div>
+      <form id="planner-form" class="campaign-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="planner-budget">Budget</label>
+            <input type="text" id="planner-budget" placeholder="e.g. $5000" required />
+          </div>
+          <div class="form-group">
+            <label for="planner-goal">Goal</label>
+            <select id="planner-goal" required>
+              <option value="">Select a Goal</option>
+              <option value="Leads">Leads</option>
+              <option value="Sales">Sales</option>
+              <option value="Awareness">Awareness</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-planner">Plan Campaign</button>
+      </form>
+      <div class="loading-state hidden" id="planner-loading"><div class="loader"></div><p>Planning...</p></div>
+      <div class="error-state hidden" id="planner-error"><p id="planner-error-msg"></p></div>
+      <div class="campaign-output hidden" id="planner-output">
+        <div class="output-header">
+          <h2>Your Plan</h2>
+          <div class="action-buttons">
+            <button class="btn-secondary" id="btn-save-planner">Save to History</button>
+            <button class="btn-secondary" id="btn-export-planner">Export .txt</button>
+            <button class="btn-secondary" id="btn-regenerate-planner">Regenerate</button>
+          </div>
+        </div>
+        <div class="output-section">
+          <h3>Timeline</h3>
+          <ul class="timeline-list" id="planner-timeline"></ul>
+        </div>
+        <div class="output-section">
+          <h3>Budget Allocation</h3>
+          <ul class="allocation-list" id="planner-allocation"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== A/B Testing Tab ===== -->
+    <section class="tab-content" id="tab-ab-test">
+      <div class="page-header">
+        <h1>A/B Testing Generator</h1>
+        <p class="page-desc">Generate ad variants to compare performance.</p>
+      </div>
+      <form id="ab-test-form" class="campaign-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="ab-product">Product</label>
+            <input type="text" id="ab-product" placeholder="e.g. EcoBottle Pro" required />
+          </div>
+          <div class="form-group">
+            <label for="ab-audience">Audience</label>
+            <input type="text" id="ab-audience" placeholder="e.g. Eco-conscious Millennials" required />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-ab-test">Generate Variants</button>
+      </form>
+      <div class="loading-state hidden" id="ab-loading"><div class="loader"></div><p>Generating A/B test...</p></div>
+      <div class="error-state hidden" id="ab-error"><p id="ab-error-msg"></p></div>
+      <div class="campaign-output hidden" id="ab-output">
+         <div class="output-header">
+          <h2>A/B Test Results</h2>
+          <div class="action-buttons">
+            <button class="btn-secondary" id="btn-save-ab">Save to History</button>
+            <button class="btn-secondary" id="btn-export-ab">Export .txt</button>
+            <button class="btn-secondary" id="btn-regenerate-ab">Regenerate</button>
+          </div>
+        </div>
+        <div class="ab-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="card">
+            <span class="card-label">Version A</span>
+            <p id="ab-version-a"></p>
+          </div>
+          <div class="card">
+            <span class="card-label">Version B</span>
+            <p id="ab-version-b"></p>
+          </div>
+        </div>
+        <div class="output-section" style="margin-top: 2rem;">
+          <h3>Comparison</h3>
+          <div class="card strategy-card" id="ab-comparison"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Audience Insights Tab ===== -->
+    <section class="tab-content" id="tab-insights">
+      <div class="page-header">
+        <h1>Audience Insights</h1>
+        <p class="page-desc">Discover everything about your target audience.</p>
+      </div>
+      <form id="insights-form" class="campaign-form">
+        <div class="form-group full-width">
+          <label for="insights-product">Product / Service</label>
+          <input type="text" id="insights-product" placeholder="e.g. Fitness Coaching App" required />
+        </div>
+        <button type="submit" class="btn-primary" id="btn-insights">Get Insights</button>
+      </form>
+      <div class="loading-state hidden" id="insights-loading"><div class="loader"></div><p>Gathering Insights...</p></div>
+      <div class="error-state hidden" id="insights-error"><p id="insights-error-msg"></p></div>
+      <div class="campaign-output hidden" id="insights-output">
+         <div class="output-header">
+          <h2>Insights</h2>
+          <div class="action-buttons">
+            <button class="btn-secondary" id="btn-save-insights">Save to History</button>
+            <button class="btn-secondary" id="btn-export-insights">Export .txt</button>
+            <button class="btn-secondary" id="btn-regenerate-insights">Regenerate</button>
+          </div>
+        </div>
+        <div class="output-section">
+          <h3>Target Audience</h3>
+          <div class="card" id="insights-audience"></div>
+        </div>
+        <div class="ab-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+          <div class="card">
+            <span class="card-label">Interests</span>
+            <ul id="insights-interests" style="margin-top: 0.5rem; padding-left: 1.2rem;"></ul>
+          </div>
+          <div class="card">
+            <span class="card-label">Pain Points</span>
+            <ul id="insights-painpoints" style="margin-top: 0.5rem; padding-left: 1.2rem;"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Improve Campaign Tab ===== -->
+    <section class="tab-content" id="tab-improve">
+      <div class="page-header">
+        <h1>Improve Campaign</h1>
+        <p class="page-desc">Paste an existing ad or text, and we'll optimize it for you.</p>
+      </div>
+      <form id="improve-form" class="campaign-form">
+        <div class="form-group full-width">
+          <label for="improve-text">Existing Campaign / Ad Copy</label>
+          <textarea id="improve-text" rows="5" placeholder="Paste your ad text here..." required style="width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: white; padding: 1rem; font-family: inherit; resize: vertical;"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-improve">Optimize Now</button>
+      </form>
+      <div class="loading-state hidden" id="improve-loading"><div class="loader"></div><p>Optimizing...</p></div>
+      <div class="error-state hidden" id="improve-error"><p id="improve-error-msg"></p></div>
+      <div class="campaign-output hidden" id="improve-output">
+         <div class="output-header">
+          <h2>Optimized Campaign</h2>
+          <div class="action-buttons">
+            <button class="btn-secondary" id="btn-save-improve">Save to History</button>
+            <button class="btn-secondary" id="btn-export-improve">Export .txt</button>
+            <button class="btn-secondary" id="btn-regenerate-improve">Regenerate</button>
+          </div>
+        </div>
+        <div class="output-section">
+           <div class="card" style="font-size: 1.1rem; border-left: 4px solid var(--primary-color);">
+             <p id="improve-improved"></p>
+           </div>
+        </div>
+        <div class="output-section" style="margin-top: 1rem;">
+          <h3>Why this is better</h3>
+          <div class="card strategy-card" id="improve-explanation"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Saved History Tab ===== -->
+    <section class="tab-content" id="tab-history">
+      <div class="page-header">
+        <h1>Saved History</h1>
+        <p class="page-desc">View and reuse your past campaign generations.</p>
+      </div>
+      <div class="loading-state hidden" id="history-loading"><div class="loader"></div><p>Loading History...</p></div>
+      <div class="cards-row" id="history-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+        <!-- History cards will appear here -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Overlay for mobile sidebar -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
