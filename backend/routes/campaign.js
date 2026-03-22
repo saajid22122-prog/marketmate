@@ -62,7 +62,7 @@ Return the response in the following JSON format ONLY (no markdown, no code fenc
         headers: {
           'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': 'marketmate-alpha.vercel.app',
+          'HTTP-Referer': 'https://marketmate-alpha.vercel.app',
           'X-Title': 'MarketMate AI'
         }
       }
