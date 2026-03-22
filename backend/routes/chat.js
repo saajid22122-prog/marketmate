@@ -47,7 +47,7 @@ Be concise, actionable, and encouraging. Use bullet points and clear formatting 
         headers: {
           'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': 'http://localhost:3000',
+          'HTTP-Referer': 'https://marketmate-ai.vercel.app',
           'X-Title': 'MarketMate AI'
         }
       }
